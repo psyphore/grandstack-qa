@@ -1,0 +1,34 @@
+<div class="main-container">
+  <header class="header-6">
+    <div class="branding">
+      <a href="#" class="nav-link">
+        <img
+          class="clr-icon"
+          src="assets/GrandStack-Logo.png"
+          alt="GRANDstack Logo"
+        />
+        <span class="title">QA Manager</span>
+      </a>
+    </div>
+    <div class="header-nav">
+      <a routerLink="/users" routerLinkActive="active" class="nav-link"
+        ><span class="nav-text">Users</span></a
+      >
+      <a routerLink="/businesses" routerLinkActive="active" class="nav-link"
+        ><span class="nav-text">Releases</span></a
+      >
+      <a routerLink="/businesses" routerLinkActive="active" class="nav-link"
+        ><span class="nav-text">Projects</span></a
+      >
+      <a routerLink="/businesses" routerLinkActive="active" class="nav-link"
+        ><span class="nav-text">Productsng</span></a
+      >
+    </div>
+    <div class="header-actions"></div>
+  </header>
+  <div class="content-container">
+    <div class="content-area">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

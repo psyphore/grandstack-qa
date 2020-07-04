@@ -1,0 +1,47 @@
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  friends: [User] @relation(name: "FRIENDS", direction: "BOTH")
+  project: [Project] @relation(name: "PART_OF", direction: "OUT")
+  recommendations(first: Int = 3): [Product]
+    @cypher(
+      statement: "MATCH (this)-[:WROTE]->(r:Review)-[:REVIEWS]->(:Business)<-[:REVIEWS]-(:Review)<-[:WROTE]-(:User)-[:WROTE]->(:Review)-[:REVIEWS]->(rec:Business) WHERE NOT EXISTS( (this)-[:WROTE]->(:Review)-[:REVIEWS]->(rec) )WITH rec, COUNT(*) AS num ORDER BY num DESC LIMIT $first RETURN rec"
+    )
+}
+
+type Project {
+  id: ID!
+  name: String!
+  description: String
+  product: [Product]
+  projectCout: Int
+    @cypher(statement: "MATCH (this)-[:PART_OF]->(p:Product) RETURN COUNT(p)")
+  releases: [Release] @relation(name: "RELEASED", direction: "OUT")
+}
+
+type Product {
+  id: ID!
+  name: String!
+  description: String
+}
+
+type Release {
+  id: ID!
+  name: String!
+  description: String
+  version: String!
+  stories: [Story] @relation(name: "INCLUDED", direction: "IN")
+  avgPoints: Float
+    @cypher(
+      statement: "MATCH (this)-[:INCLUDED]->(s:Story) RETURN toFloat(avg(s.points),0.0)"
+    )
+}
+
+type Story {
+  id: ID!
+  summary: String!
+  description: String!
+  points: Int!
+  type: String
+}
