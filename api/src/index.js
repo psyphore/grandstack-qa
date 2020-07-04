@@ -22,6 +22,11 @@ const app = express()
 const schema = makeAugmentedSchema({
   typeDefs,
   config: {
+    // auth: {
+    //   isAuthenticated: true,
+    //   hasRole: true,
+    //   hasScope: true,
+    // },
     query: {
       exclude: ['RatingCount'],
     },
@@ -96,5 +101,5 @@ const host = process.env.GRAPHQL_SERVER_HOST || '0.0.0.0'
 server.applyMiddleware({ app, path })
 
 app.listen({ host, port, path }, () => {
-  console.log(`GraphQL server ready at http://${host}:${port}${path}`)
+  console.log(`🚀 Server ready at http://${host}:${port}${path}`)
 })

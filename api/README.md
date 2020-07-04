@@ -41,10 +41,28 @@ npm run seedDb
 ## importing data
 
 ```cypher
-WITH 'https://raw.githubusercontent.com/neo4j-contrib/neo4j-apoc-procedures/4.0/src/test/resources/person.json' AS url
-CALL apoc.load.json(url) YIELD value as person
-MERGE (p:Person{ name:person.name})
-ON CREATE SET p.age = person.age, p.children = size(person.children)
+CALL apoc.load.json("./import/people.json") YIELD value AS people
+UNWIND people AS person
+WITH apoc.create.uuid() AS uuid , person
+MERGE (u:User)
+  ON CREATE SET
+    u += person,
+  	u.created = timestamp(),
+    u.id = uuid
+RETURN u
+```
+
+```cypher
+CALL apoc.load.json("./import/products.json") YIELD value AS products
+UNWIND products AS product
+WITH apoc.create.uuid() AS uuid , product
+MERGE (p:Product)
+  ON CREATE SET
+    p += product,
+    p.id = uuid,
+  	p.created = timestamp()
+
+RETURN p
 ```
 
 ```cypher

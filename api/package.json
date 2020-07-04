@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start:dev": "./node_modules/.bin/nodemon --watch src --ext js,graphql --exec babel-node  src/index.js",
+    "start:dev": "./node_modules/.bin/nodemon -w ./src/ --ext js,graphql --exec babel-node  ./src/index.js",
+    "start:debug": "babel-node --nolazy --inspect-brk=9229 ./src/index.js",
     "build": "babel src --out-dir build && shx cp .env build 2>/dev/null || : && shx cp src/qa-schema.graphql build",
     "now-build": "babel src --out-dir build && shx cp src/qa-schema.graphql build",
     "start": "npm run build && node build/index.js",
