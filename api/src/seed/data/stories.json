@@ -1,0 +1,38 @@
+[
+  {
+    "summary": "D8 Database",
+    "description": "Create a database for the D8 App",
+    "points": 5,
+    "type": "FEATURE"
+  },
+  {
+    "summary": "Table",
+    "description": "Create database table",
+    "points": 3,
+    "type": "TASK"
+  },
+  {
+    "summary": "D8 API",
+    "description": "Create a database for the D8 App",
+    "points": 5,
+    "type": "FEATURE"
+  },
+  {
+    "summary": "D8 UI",
+    "description": "Create UI for D8 App",
+    "points": 5,
+    "type": "FEATURE"
+  },
+  {
+    "summary": "Create Endpoint",
+    "description": "Expose GraphQL endpoint",
+    "points": 3,
+    "type": "TASK"
+  },
+  {
+    "summary": "Create Service",
+    "description": "Create service to connect to database",
+    "points": 3,
+    "type": "TASK"
+  }
+]

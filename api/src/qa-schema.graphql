@@ -2,22 +2,18 @@ type User {
   id: ID!
   name: String!
   email: String!
-  friends: [User] @relation(name: "FRIENDS", direction: "BOTH")
-  project: [Project] @relation(name: "PART_OF", direction: "OUT")
-  recommendations(first: Int = 3): [Product]
-    @cypher(
-      statement: "MATCH (this)-[:WROTE]->(r:Review)-[:REVIEWS]->(:Business)<-[:REVIEWS]-(:Review)<-[:WROTE]-(:User)-[:WROTE]->(:Review)-[:REVIEWS]->(rec:Business) WHERE NOT EXISTS( (this)-[:WROTE]->(:Review)-[:REVIEWS]->(rec) )WITH rec, COUNT(*) AS num ORDER BY num DESC LIMIT $first RETURN rec"
-    )
 }
 
 type Project {
   id: ID!
   name: String!
   description: String
-  product: [Product]
   projectCout: Int
     @cypher(statement: "MATCH (this)-[:PART_OF]->(p:Product) RETURN COUNT(p)")
   releases: [Release] @relation(name: "RELEASED", direction: "OUT")
+  product: [Product] @relation(name: "INCLUDES", direction: "IN")
+  leadBy: [User] @relation(name: "LEAD_BY", direction: "IN")
+  contributors: [User] @relation(name: "CONTRIBUTES", direction: "IN")
 }
 
 type Product {
@@ -43,5 +39,13 @@ type Story {
   summary: String!
   description: String!
   points: Int!
-  type: String
+  type: STORY_TYPE
+  subTasks: [Story] @relation(name: "SUB_TASK", direction: "IN")
+}
+
+enum STORY_TYPE {
+  BUG
+  TASK
+  FEATURE
+  INVESTIGATION
 }

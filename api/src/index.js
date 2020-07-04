@@ -80,14 +80,21 @@ try {
  * instance into the context object so it is available in the
  * generated resolvers to connect to the database.
  */
-const server = new ApolloServer({
+const apolloConfig = {
   context: { driver, neo4jDatabase: process.env.NEO4J_DATABASE },
   schema: schema,
   introspection: true,
   playground: true,
   depthLimit: 7,
-  amaountLimit: 100,
-})
+  amountLimit: 100,
+  tracing: true,
+  pretty: true,
+  cacheControl: true,
+  printError: true,
+  allowUndefinedInResolve: false,
+}
+
+const server = new ApolloServer(apolloConfig)
 
 // Specify host, port and path for GraphQL endpoint
 const port = process.env.GRAPHQL_SERVER_PORT || 4001

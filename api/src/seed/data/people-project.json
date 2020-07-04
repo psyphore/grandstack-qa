@@ -1,0 +1,23 @@
+[
+  {
+    "name": "D8",
+    "description": "Admin System",
+    "relationship": [
+      {
+        "from": { "node": "Mbali", "label": "User"},
+        "to": { "node": "D8", "label": "Product"},
+        "name": "LEAD_BY"
+      },
+      {
+        "from": { "node": "Sipho", "label": "User"},
+        "to": { "node": "D8", "label": "Product"},
+        "name": "CONTRIBUTES" 
+      },
+      {
+        "from": { "node": "Pearl", "label": "User"},
+        "to": { "node": "D8", "label": "Product"},
+        "name": "CONTRIBUTES" 
+      }
+    ]
+  }
+]
