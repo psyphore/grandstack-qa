@@ -1,0 +1,24 @@
+[
+  {
+    "name": "D8",
+    "description": "Admin System",
+    "relationship": [
+      {
+        "from": { "node": "Table", "label": "Story"},
+        "to": { "node": "D8 Database", "label": "Story"},
+        "name": "SUBTASK"
+      },
+      {
+        "from": { "node": "Create Endpoint", "label": "Story"},
+        "to": { "node": "D8 API", "label": "Story"},
+        "name": "SUBTASK"
+      }
+      ,
+      {
+        "from": { "node": "Create Service", "label": "Story"},
+        "to": { "node": "D8 API", "label": "Story"},
+        "name": "SUBTASK"
+      }
+    ]
+  }
+]

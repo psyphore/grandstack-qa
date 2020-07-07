@@ -4,8 +4,8 @@
     "description": "Admin System",
     "relationship": [
       {
-        "from": { "node": "Mbali", "label": "User"},
-        "to": { "node": "D8", "label": "Project"},
+        "from": { "node": "Cyril", "label": "User"},
+        "to": { "node": "D8", "label": "Release"},
         "name": "LEAD_BY"
       }
     ]

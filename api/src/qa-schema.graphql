@@ -8,7 +8,7 @@ type Project {
   id: ID!
   name: String!
   description: String
-  projectCout: Int
+  produtCount: Int
     @cypher(statement: "MATCH (this)-[:PART_OF]->(p:Product) RETURN COUNT(p)")
   releases: [Release] @relation(name: "RELEASED", direction: "OUT")
   product: [Product] @relation(name: "INCLUDES", direction: "IN")
@@ -27,11 +27,13 @@ type Release {
   name: String!
   description: String
   version: String!
-  stories: [Story] @relation(name: "INCLUDED", direction: "IN")
+  stories: [Story] @relation(name: "PART_OF", direction: "IN")
   avgPoints: Float
     @cypher(
-      statement: "MATCH (this)-[:INCLUDED]->(s:Story) RETURN toFloat(avg(s.points),0.0)"
+      statement: "MATCH (this)<-[:PART_OF]-(s:Story) RETURN apoc.convert.toFloat(avg(s.points))"
     )
+    leadBy: [User] @relation(name: "LEAD_BY", direction: "IN")
+    product: [Product] @relation(name: "INCLUDES", direction: "IN")
 }
 
 type Story {
@@ -41,6 +43,14 @@ type Story {
   points: Int!
   type: STORY_TYPE
   subTasks: [Story] @relation(name: "SUB_TASK", direction: "IN")
+}
+
+type Article {
+  id: ID!
+  name: String!
+  mimeType: String!
+  data: String!
+  created: Int!
 }
 
 enum STORY_TYPE {

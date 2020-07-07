@@ -1,5 +1,6 @@
 import { typeDefs } from './graphql-schema'
 import { ApolloServer } from 'apollo-server-express'
+// import { makeExecutableSchema } from 'apollo-server'
 import express from 'express'
 import neo4j from 'neo4j-driver'
 import { makeAugmentedSchema } from 'neo4j-graphql-js'

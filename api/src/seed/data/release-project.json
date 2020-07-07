@@ -1,0 +1,13 @@
+[
+  {
+    "name": "D8",
+    "description": "Admin System",
+    "relationship": [
+      {
+        "from": { "node": "D8", "label": "Project"},
+        "to": { "node": "D8", "label": "Release"},
+        "name": "RELEASED"
+      }
+    ]
+  }
+]

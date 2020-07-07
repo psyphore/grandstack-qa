@@ -1,0 +1,28 @@
+[
+  {
+    "name": "D8",
+    "description": "Admin System",
+    "relationship": [
+      {
+        "from": { "node": "Sipho", "label": "User"},
+        "to": { "node": "D8 Database", "label": "Story"},
+        "name": "CONTRIBUTES" 
+      },
+      {
+        "from": { "node": "Kwenza", "label": "User"},
+        "to": { "node": "D8 Database", "label": "Story"},
+        "name": "CONTRIBUTES" 
+      },
+      {
+        "from": { "node": "Kwenza", "label": "User"},
+        "to": { "node": "D8 API", "label": "Story"},
+        "name": "CONTRIBUTES" 
+      },
+      {
+        "from": { "node": "Sipho", "label": "User"},
+        "to": { "node": "D8 UI", "label": "Story"},
+        "name": "CONTRIBUTES" 
+      }
+    ]
+  }
+]
