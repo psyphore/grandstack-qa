@@ -1,7 +1,6 @@
 import { sign, verify, decode  } from 'jsonwebtoken'
 import { use } from 'passport'
 import * as auth0passport from 'passport-auth0'
-import { WebAuth, Authentication, PasswordlessAuthentication, Management } from 'auth0-js'
 import * as fetch from 'node-fetch'
 import * as dayJS from 'dayjs'
 

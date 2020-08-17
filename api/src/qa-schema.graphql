@@ -1,61 +1,136 @@
-type User {
-  id: ID!
-  name: String!
-  email: String!
-}
 
-type Project {
-  id: ID!
-  name: String!
-  description: String
-  produtCount: Int
-    @cypher(statement: "MATCH (this)-[:PART_OF]->(p:Product) RETURN COUNT(p)")
-  releases: [Release] @relation(name: "RELEASED", direction: "OUT")
-  product: [Product] @relation(name: "INCLUDES", direction: "IN")
-  leadBy: [User] @relation(name: "LEAD_BY", direction: "IN")
-  contributors: [User] @relation(name: "CONTRIBUTES", direction: "IN")
-}
+# These type definitions have been generated from your Neo4j database.
 
+# Here are some Neo4j specific scalars that you can use to map to native Neo4j types:
+scalar Point
+scalar Date
+scalar DateTime
+scalar Long
+
+# Edit these GraphQL type definitions below to change your GraphQL API
+# You can add custom logic defined with Cypher using the @cypher GraphQL schema directive
+# You can refer to the docs at https://grandstack.io
 type Product {
-  id: ID!
-  name: String!
-  description: String
+   _id: Long!
+   created: Int!
+   description: String!
+   id: String!
+   name: String!
+   includes: [Release] @relation(name: "INCLUDES", direction: OUT)
+   INCLUDES_rel: [INCLUDES]
 }
 
-type Release {
-  id: ID!
-  name: String!
-  description: String
-  version: String!
-  stories: [Story] @relation(name: "PART_OF", direction: "IN")
-  avgPoints: Float
-    @cypher(
-      statement: "MATCH (this)<-[:PART_OF]-(s:Story) RETURN apoc.convert.toFloat(avg(s.points))"
-    )
-    leadBy: [User] @relation(name: "LEAD_BY", direction: "IN")
-    product: [Product] @relation(name: "INCLUDES", direction: "IN")
+type User {
+   _id: Long!
+   created: Int!
+   email: String!
+   id: String!
+   name: String!
+   contributes: [Story] @relation(name: "CONTRIBUTES", direction: OUT)
+   CONTRIBUTES_rel: [CONTRIBUTES]
+   author: [Article] @relation(name: "AUTHOR", direction: OUT)
+   AUTHOR_rel: [AUTHOR]
 }
 
 type Story {
-  id: ID!
-  summary: String!
-  description: String!
-  points: Int!
-  type: STORY_TYPE
-  subTasks: [Story] @relation(name: "SUB_TASK", direction: "IN")
+   _id: Long!
+   created: Int!
+   description: String!
+   id: String!
+   points: Int!
+   summary: String!
+   type: String!
+   subtask: [Story] @relation(name: "SUBTASK", direction: OUT)
+   SUBTASK_rel: [SUBTASK]
+   part_of: [Release] @relation(name: "PART_OF", direction: OUT)
+   PART_OF_rel: [PART_OF]
+   users: [User] @relation(name: "CONTRIBUTES", direction: IN)
+   articles: [Article] @relation(name: "SIGN_OFF", direction: IN)
+}
+
+type Release {
+   _id: Long!
+   created: Int!
+   description: String!
+   id: String!
+   name: String!
+   version: String!
+   users: [User] @relation(name: "LEAD_BY", direction: IN)
+   projects: [Project] @relation(name: "RELEASED", direction: IN)
+   products: [Product] @relation(name: "INCLUDES", direction: IN)
+   storys: [Story] @relation(name: "PART_OF", direction: IN)
+   articles: [Article] @relation(name: "SIGN_OFF", direction: IN)
 }
 
 type Article {
-  id: ID!
-  name: String!
-  mimeType: String!
-  data: String!
+   _id: Long!
+   created: Int!
+   data: String!
+   id: String!
+   mimeType: String!
+   name: String!
+   users: [User] @relation(name: "AUTHOR", direction: IN)
+}
+
+type Project {
+   _id: Long!
+   created: Int!
+   description: String!
+   id: String!
+   name: String!
+   released: [Release] @relation(name: "RELEASED", direction: OUT)
+   RELEASED_rel: [RELEASED]
+   users: [User] @relation(name: "LEAD_BY", direction: IN)
+}
+
+type Security {
+  _id: Long!
+   created: Int!
+   id: String!
+   password: String!
+   confirmed: Boolean!
+   blocked: Boolean!
+   user: User @relation(name: "SECURED", direction: OUT)
+}
+
+type SECURED @relation(name: "SECURED") {
+  from: Security!
+  to: User!
   created: Int!
 }
 
-enum STORY_TYPE {
-  BUG
-  TASK
-  FEATURE
-  INVESTIGATION
+type CONTRIBUTES @relation(name: "CONTRIBUTES") {
+  from: User!
+  to: Story!
+  created: Int!
+}
+
+type SUBTASK @relation(name: "SUBTASK") {
+  from: Story!
+  to: Story!
+  created: Int!
+}
+
+type RELEASED @relation(name: "RELEASED") {
+  from: Project!
+  to: Release!
+  created: Int!
+}
+
+type INCLUDES @relation(name: "INCLUDES") {
+  from: Product!
+  to: Release!
+  created: Int!
+}
+
+type PART_OF @relation(name: "PART_OF") {
+  from: Story!
+  to: Release!
+  created: Int!
+}
+
+type AUTHOR @relation(name: "AUTHOR") {
+  from: User!
+  to: Article!
+  created: Int!
 }
