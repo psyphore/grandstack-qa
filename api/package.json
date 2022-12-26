@@ -27,7 +27,7 @@
     "graphql-tag": "^2.10.3",
     "neo4j-driver": "^4.1.0",
     "neo4j-graphql-js": "^2.14.3",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^2.6.7",
     "neode": "^0.4.5",
     "uuid": "^8.2.0",
     "passport": "^0.4.1",
