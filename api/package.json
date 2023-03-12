@@ -52,7 +52,7 @@
     "@babel/preset-typescript": "^7.9.0",
     "@babel/runtime-corejs3": "^7.9.2",
     "babel-plugin-auto-import": "^1.0.5",
-    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "nodemon": "^2.0.4",
     "shx": "^0.3.2"
   },
